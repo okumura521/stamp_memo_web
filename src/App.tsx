@@ -4,7 +4,7 @@ import { StampFilter } from "./components/StampFilter";
 import { MemoList } from "./components/MemoList";
 import { StampChart } from "./components/StampChart";
 
-const stamps = ["⭐️", "✅", "⚠️"];
+const stamps = ["⭐️", "✅", "⚠️","🥵"];
 
 function App() {
   const [selectedStamp, setSelectedStamp] = useState<string>("");
@@ -12,7 +12,7 @@ function App() {
   return (
   <div style={{ maxWidth: 1000, margin: "auto", padding: 20 }}>
     <h2>スタンプメモ</h2>
-    <MemoInput />
+    <MemoInput stamps={stamps}/>
     <div style={{ display: "flex", flexWrap: "wrap", gap: 24, marginTop: 24 }}>
       {/* 左側：メモリスト */}
       <div style={{ flex: 1, minWidth: 280 }}>

@@ -1,10 +1,13 @@
 import { useState } from "react"; // Reactの状態管理フック
 import { memosCol, addDoc, ts } from "../firebase"; // Firebaseのコレクション参照、追加関数、タイムスタンプ関数
 
-// スタンプ候補（セレクトメニューで選べる）
-const stamps = ["⭐️", "✅", "⚠️"];
+// スタンプ定義を受け取る
+  type Props = {
+    stamps: string[];
+  };
 
-export function MemoInput() {
+
+export function MemoInput({ stamps }: Props) {
   // メモ本文（テキスト）の状態
   const [text, setText] = useState("");
 
