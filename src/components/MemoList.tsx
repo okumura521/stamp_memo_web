@@ -14,6 +14,7 @@ type Memo = {
   id: string;         // FirestoreのドキュメントID
   memoText: string;   // メモの本文
   stamp: string;      // 選択したスタンプ（例: "⭐️"）
+  haiku?: string;     // ✅ 俳句を追加（空もあるのでoptionalにしておく）
   createdAt: any;     // 作成日時（timestamp 型）
 };
 
@@ -58,28 +59,33 @@ export function MemoList({ selectedStamp }: Props) {
 
   // メモ一覧の表示
   return (
-    <ul>
-      {memos.map(m => (
-        <li
-          key={m.id}
-          style={{
-            display: "flex",               // 横並び
-            alignItems: "center",         // 垂直中央揃え
-            justifyContent: "space-between", // 左右に均等配置
-            padding: "8px 12px",          // 内側マージン
-            borderBottom: "1px solid #eee" // 下線で区切る
-          }}
-        >
-          <span>{m.stamp}</span> {/* スタンプ表示 */}
-          <span style={{ flex: 1, marginLeft: 8 }}>{m.memoText}</span> {/* メモ本文 */}
-          <button
-            onClick={() => remove(m.id)} // 削除ボタン
-            style={{ marginLeft: 8 }}
-          >
+<ul>
+    {memos.map(m => (
+      <li
+        key={m.id}
+        style={{
+          display: "flex",
+          flexDirection: "column", // ✅ 縦並びに変更
+          padding: "12px",
+          borderBottom: "1px solid #eee"
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <span>{m.stamp}</span>
+          <span style={{ flex: 1, marginLeft: 8 }}>{m.memoText}</span>
+          <button onClick={() => remove(m.id)} style={{ marginLeft: 8 }}>
             削除
           </button>
-        </li>
-      ))}
-    </ul>
+        </div>
+
+        {/* ✅ 俳句を表示（存在する場合のみ） */}
+        {m.haiku && (
+          <div style={{ marginTop: 6, fontStyle: "italic", color: "#555" }}>
+            🌸 <strong>俳句：</strong>{m.haiku}
+          </div>
+        )}
+      </li>
+    ))}
+  </ul>
   );
 }
